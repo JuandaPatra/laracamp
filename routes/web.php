@@ -15,4 +15,27 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+})->name('welcome');
+
+Route::get('/login', function () {
+    return view('login');
+})->name('login');
+
+
+// Route::get('/checkout', function () {
+//     return view('checkout.create');
+// })->name('create');
+
+
+Route::get('/checkout', function () {
+    return view('checkout');
+})->name('checkout');
+
+Route::get('/checkout/success', function () {
+    return view('success_checkout');
 });
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
+
