@@ -4,10 +4,12 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\Checkout\Store;
+use App\Mail\Checkout\AfterPaid;
 use App\Models\Camp;
 use App\Models\Checkout;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class CheckoutController extends Controller
 {
@@ -49,7 +51,7 @@ class CheckoutController extends Controller
             return redirect('/');
         }
 
-        return $request;
+        // return $request;
 
         $data = $request->all();
         $data['user_id'] = Auth::id();
@@ -63,7 +65,9 @@ class CheckoutController extends Controller
         $user->save();
 
 
+        
         $checkout = Checkout::create($data);
+        Mail::to(Auth::user()->email)->send(new AfterPaid($checkout));
 
 
 
@@ -120,5 +124,10 @@ class CheckoutController extends Controller
     {
         // return $request;
         return view('checkout.success_checkout');
+    }
+
+    public function invoice(Checkout $checkout)
+    {
+        return $checkout;
     }
 }

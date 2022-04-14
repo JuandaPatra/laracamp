@@ -40,6 +40,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/checkout/{camp}', [CheckoutController::class, 'store'])->name('checkout.store');
     Route::get('/checkout/{camp:slug}', [CheckoutController::class, 'create'])->name('checkout.create');
     Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
+    Route::get('/dashboard/checkout/invoice/{checkout}', [CheckoutController::class, 'invoice'])->name('user.checkout.invoice');
 });
 
 // Route::get('/dashboard', function () {
