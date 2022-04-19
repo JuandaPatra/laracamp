@@ -32,15 +32,24 @@
                             </p>
                         </td>
                         <td>
-                            <strong>${{$checkout->camp->price}},000</strong>
+                            <strong>{{$checkout->camp->price}},000</strong>
                         </td>
                         <td>
-                            @if($checkout->is_paid)
+                            @if($checkout->payment_status == 'paid')
                             <strong class="text-green">Payment Success</strong>
                             @else
                             <strong>Waiting for Payment</strong>
                             @endif
                         </td>
+                        @if($checkout->payment_status == 'paid')
+                        <td>
+                            <a href="{{$checkout->midtrans_url}}" class="btn btn-primary disabled" >Pay here</a>
+                        </td>
+                        @else
+                        <td>
+                            <a href="{{$checkout->midtrans_url}}" class="btn btn-primary">Pay here</a>
+                        </td>
+                        @endif
                         <td>
                             <a href="https://wa.me/087722039749?text=Hi, saya ingin bertanya tentang kelas {{$checkout->camp->title}}" class="btn btn-primary">
                                 Contact Support

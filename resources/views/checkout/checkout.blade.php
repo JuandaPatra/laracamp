@@ -54,29 +54,20 @@
                                 @enderror
                             </div>
                             <div class="mb-4">
-                                <label for="exampleInputEmail1" class="form-label">Card Number</label>
-                                <input name="card_number" type="number" class="form-control @if($errors->has('card_number')) is-invalid  @endif" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{old('card_number') ?: Auth::user()->card_number }}">
-                                @error('card_number')
+                                <label for="exampleInputEmail1" class="form-label">Phone</label>
+                                <input name="phone" type="number" class="form-control @if($errors->has('phone')) is-invalid  @endif" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{old('phone') ?: Auth::user()->phone }}">
+                                @error('phone')
                                 <span>{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div class="mb-5">
-                                <div class="row">
-                                    <div class="col-lg-6 col-12">
-                                        <label for="exampleInputEmail1" class="form-label">Expired</label>
-                                        <input name="expired" type="month" class="form-control @if($errors->has('expired')) is-invalid  @endif" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{old('expired') ?: '' }}">
-                                        @error('expired')
-                                        <span>{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                    <div class="col-lg-6 col-12">
-                                        <label for="exampleInputEmail1" class="form-label">CVC</label>
-                                        <input name="cvc" type="number" class="form-control @if($errors->has('cvc')) is-invalid  @endif" maxlength="3" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{old('cvc') ?: '' }}">
-                                        @error('cvc')
-                                        <span>{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
+                            <div class="mb-4">
+                                <label for="exampleInputEmail1" class="form-label">Address</label>
+                                <input name="address" type="text" class="form-control @if($errors->has('address')) is-invalid  @endif" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{old('address') ?: Auth::user()->address }}">
+                                @error('address')
+                                <span>{{ $message }}</span>
+                                @enderror
+                            </div>
+                            
                             </div>
                             <button type="submit" class="w-100 btn btn-primary">Pay Now</button>
                             <p class="text-center subheader mt-4">

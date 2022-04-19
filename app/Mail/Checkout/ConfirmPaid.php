@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class AfterPaid extends Mailable
+class ConfirmPaid extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -30,7 +30,7 @@ class AfterPaid extends Mailable
      */
     public function build()
     {
-        return $this->subject("Register Camp: {$this->checkout->camp->title}")->markdown('emails.checkout.afterPaid',[
+        return $this->subject("Confirm Payment: {$this->checkout->camp->title}")->markdown('emails.checkout.confirmPaid',[
             'checkout' => $this->checkout
         ]);
     }
