@@ -66,9 +66,12 @@
                                         <p class="text-danger">{{$errors->first('address')}}</p>
                                     @endif
                                 </div>
-                                <button type="submit" class="w-100 btn btn-primary">Pay Now</button>
-                                <p class="text-center subheader mt-4">
+                                <div class="mb-4">
+                                    <button type="submit" class="w-100 btn btn-primary">Pay Now</button>
                                     <img src="{{asset('images/ic_secure.svg')}}" alt=""> Your payment is secure and encrypted.
+
+                                </div>
+                                <p class="text-center subheader mt-4">
                                 </p>
                             </form>
                         </div>
