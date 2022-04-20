@@ -30,7 +30,8 @@ class Store extends FormRequest
             'email' => 'required|email|unique:users,email,'.Auth::id().',id',
             'occupation' => 'required|string',
             'phone' => 'required|numeric|digits:12',
-            'address' => 'required|string'
+            'address' => 'required|string',
+            'discount' => 'nullable|string|exists:discounts,code,deleted_at,NULL'
 
         ];
     }

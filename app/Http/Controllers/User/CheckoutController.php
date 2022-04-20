@@ -14,6 +14,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\User\Checkout\Store;
+use App\Models\Discount;
 
 class CheckoutController extends Controller
 {
@@ -77,9 +78,16 @@ class CheckoutController extends Controller
         $user->address = $data['address'];
         $user->save();
 
+        if($request->discount){
+            $discount = Discount::whereCode($request->discount)->first();
+            $data['discount_id'] = $discount->id;
+            $data['discount_percentage'] = $discount->percentage;
+        }
+
 
 
         $checkout = Checkout::create($data);
+        // return $checkout;
         $this->getSnapRedirect($checkout);
         Mail::to(Auth::user()->email)->send(new AfterPaid($checkout));
 
@@ -152,16 +160,29 @@ class CheckoutController extends Controller
         $price = $checkout->camp->price * 1000;
         $checkout->midtrans_booking_code = $orderId;
 
-        $transaction_details = [
-            'order_id' => $orderId,
-            'gross_amount' => $price,
-        ];
 
         $item_details[] = [
             'id' => $orderId,
             'price' => $price,
             'quantity' => 1,
             'name' => "Payment for {$checkout->camp->name} Camp."
+        ];
+
+        $discountPrice = 0;
+        if($checkout->discount){
+            $discountPrice = $price * $checkout->discount_percentage/100;
+            $item_details[] = [
+                'id' => $checkout->discount->code,
+                'price' => -$discountPrice,
+                'quantity' => 1,
+                'name' => "Discount {$checkout->discount->name} {$checkout->discount_percentage}%"
+            ];
+        }
+        $total =$price-$discountPrice;
+
+        $transaction_details = [
+            'order_id' => $orderId,
+            'gross_amount' => $total,
         ];
 
         $userData = [
@@ -193,6 +214,7 @@ class CheckoutController extends Controller
             //get snap payment page url
             $paymentUrl = Snap::createTransaction($midtrans_params)->redirect_url;
             $checkout->midtrans_url = $paymentUrl;
+            $checkout->total = $total;
             $checkout->save();
 
             return $paymentUrl;

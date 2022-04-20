@@ -32,7 +32,10 @@
                             </p>
                         </td>
                         <td>
-                            <strong>{{$checkout->camp->price}},000</strong>
+                            <strong>Rp. {{$checkout->total}}</strong>
+                            @if($checkout->id)
+                            <span class="badge bg-success">Disc {{$checkout->discount_percentage}}%</span>
+                            @endif
                         </td>
                         <td>
                             @if($checkout->payment_status == 'paid')

@@ -17,5 +17,8 @@ class Discount extends Model
         'percentage'
     ];
 
-    
+    public function checkout()
+    {
+        return $this->belongsTo(Checkout::class);
+    }
 }
