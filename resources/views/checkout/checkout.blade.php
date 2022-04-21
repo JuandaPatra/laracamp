@@ -69,17 +69,18 @@
                             </div>
                             <div class="mb-4">
                                 <label class="form-label">Discount</label>
-                                <input name="discount" type="text" class="form-control {{$errors->has('discount') ? 'is-invalid' : ''}}" value="{{old('discount')}}"  />
+                                <input name="discount" type="text" class="form-control {{$errors->has('discount') ? 'is-invalid' : ''}}" value="{{old('discount')}}" />
                                 @if ($errors->has('discount'))
                                 <p class="text-danger">{{$errors->first('discount')}}</p>
                                 @endif
                             </div>
 
                     </div>
-                    <button type="submit" class="w-100 btn btn-primary">Pay Now</button>
-                    <p class="text-center subheader mt-4">
-                        <img src="/assets/images/ic_secure.svg" alt=""> Your payment is secure and encrypted.
-                    </p>
+                    <div class="mb-4">
+                        <button type="submit" class="w-100 btn btn-primary">Pay Now</button>
+                        <img src="{{asset('images/ic_secure.svg')}}" alt=""> Your payment is secure and encrypted.
+
+                    </div>
                     </form>
                 </div>
             </div>
